@@ -33,8 +33,16 @@ jobs:
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
+        
+        echo $0
+        
         conda init bash
+        
+        tail ~/.bashrc
+        
         source ~/.bashrc
+        
+        which conda
 
     - name: Installing mamba
       run: |
@@ -46,5 +54,5 @@ jobs:
  
     - name: Test command
       run: |
-         conda activate conda-pip-testing
+         source activate conda-pip-testing
          print-test
