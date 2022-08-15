@@ -30,6 +30,6 @@ setup(
     "Natural Language :: English",
     "Operating System :: POSIX :: Linux",
     "Operating System :: MacOS :: MacOS X",
-    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3",
     ],
 )
