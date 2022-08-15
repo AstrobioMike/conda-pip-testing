@@ -3,6 +3,9 @@ import sys
 
 ### variables ###
 
+# version
+version = '0.1'
+
 # setting some colors
 tty_colors = {
     'green' : '\033[0;32m%s\033[0m',
@@ -20,5 +23,5 @@ def color_text(text, color='green'):
 
 
 def wprint(text):
-    print(textwrap.fill(text, width=80, initial_indent="  ", 
-          subsequent_indent="  ", break_on_hyphens=False))
+    print(textwrap.fill(text, width = 80, initial_indent = "  ", 
+          subsequent_indent="  ", break_on_hyphens = False))
