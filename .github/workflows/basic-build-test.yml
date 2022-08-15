@@ -48,5 +48,4 @@ jobs:
 
     - name: Test command
       run: |
-         source activate conda-pip-testing
          print-test
