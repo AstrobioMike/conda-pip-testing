@@ -1,5 +1,6 @@
 import textwrap
 import sys
+import pandas as pd
 
 ### variables ###
 
@@ -25,3 +26,19 @@ def color_text(text, color='green'):
 def wprint(text):
     print(textwrap.fill(text, width = 80, initial_indent = "  ", 
           subsequent_indent="  ", break_on_hyphens = False))
+
+
+def add(a, b):
+    return(a + b)
+
+
+def add_col(df, colname, coldata):
+    
+    # add a column to a DataFrame
+    df[colname] = coldata
+    return(df)
+
+
+def subtract(a , b):
+    return(a - b)
+
