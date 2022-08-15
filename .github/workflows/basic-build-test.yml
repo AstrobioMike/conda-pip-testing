@@ -67,4 +67,5 @@ jobs:
 
     - name: Run pytest
       run:
+        pip install pytest
         python -m pytest
