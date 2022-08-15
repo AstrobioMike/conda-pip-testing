@@ -9,7 +9,7 @@ on:
   
 jobs:
 
-  # linux build test
+  # linux and mac build tests
   test:
 
     name: Test on ${{ matrix.os }}
@@ -29,10 +29,11 @@ jobs:
       with:
         python-version: "3.10"
                 
-    - name: Add conda to system path
+    - name: Add conda to system path and initializing it for the shell
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
+        conda init bash
 
     - name: Installing mamba
       run: |
