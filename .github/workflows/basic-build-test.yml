@@ -42,8 +42,9 @@ jobs:
 
     - name: Installing dependencies via conda
       run: |
-        # mamba install -y -c conda-forge -c bioconda -c defaults biopython pybedtools parallel scikit-bio pip entrez-direct taxonkit pandas goatools pigz snakemake coreutils
-        mamba install -y -c conda-forge -c bioconda -c defaults biopython pandas
+        # mamba install -y -c conda-forge -c bioconda -c defaults biopython pybedtools parallel scikit-bio pip entrez-direct taxonkit pandas goatools pigz snakemake coreutils pytest
+        mamba install -y -c conda-forge -c bioconda -c defaults biopython pandas pytest
+
     - name: Installing package via pip
       run: |
         python -m pip install --no-deps --ignore-installed .
@@ -67,5 +68,4 @@ jobs:
 
     - name: Run pytest
       run:
-        pip install pytest
         python -m pytest
