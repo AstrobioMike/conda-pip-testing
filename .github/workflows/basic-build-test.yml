@@ -1,51 +1,64 @@
 name: Python Package using Conda
 
 on:
-  push:
-    branches:
-    - main
+    push:
+        branches:
+        - main
 
-  workflow_dispatch:
+    workflow_dispatch:
   
 jobs:
 
-  # linux and mac build tests
-  test:
+    # linux and mac build tests
+    test:
 
-    name: Test on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+        name: Test on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macOS-latest]
-      max-parallel: 5
+        strategy:
+            matrix:
+                os: [ubuntu-latest, macOS-latest]
+                max-parallel: 5
 
 
-    steps:
-    - uses: actions/checkout@v3
+        steps:
+        - uses: actions/checkout@v3
 
-    - name: Setup Python
-      uses: actions/setup-python@v4.2.0
-      with:
-        python-version: "3.10"
+        - name: Setup Python
+          uses: actions/setup-python@v4.2.0
+          with:
+              python-version: "3.10"
                 
-    - name: Add conda to system path
-      run: |
-        # $CONDA is an environment variable pointing to the root of the miniconda directory
-        echo $CONDA/bin >> $GITHUB_PATH
+        - name: Add conda to system path
+          run: |
+              # $CONDA is an environment variable pointing to the root of the miniconda directory
+              echo $CONDA/bin >> $GITHUB_PATH
         
-    - name: Installing mamba
-      run: |
-        conda install -c conda-forge mamba
+        - name: Installing mamba
+          run: |
+              conda install -c conda-forge mamba
 
-    - name: Installing dependencies via conda
-      run: |
-         mamba install -y -c conda-forge -c bioconda -c defaults pandas
+        - name: Installing dependencies via conda
+          run: |
+              mamba install -y -c conda-forge -c bioconda -c defaults biopython pybedtools parallel scikit-bio pip entrez-direct taxonkit pandas goatools pigz snakemake coreutils
 
-    - name: Installing package via pip
-      run: |
-         python -m pip install --no-deps --ignore-installed .
+        - name: Installing package via pip
+          run: |
+              python -m pip install --no-deps --ignore-installed .
 
-    - name: Test command
-      run: |
-         print-test
+        - name: Test basic command
+          run: |
+              print-test
+
+        - name: Make test fasta
+          run: |
+              printf ">orig-seq-1\nAAAA\n>orig-seq-2\nTTTT\n" > test-1.fa
+
+        - name: Test biopython with bit-rename-fasta-headers
+          run: |
+              printf "\n  Original fasta:\n"
+              cat test-1.fa
+              printf "\n  Running bit-rename-fasta-headers:\n"
+              bit-rename-fasta-headers -i test-1.fa -w renamed -o test-2.fa
+              printf "\n  Modified fasta:\n"
+              cat test-2.fa
